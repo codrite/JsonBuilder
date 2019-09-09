@@ -31,7 +31,7 @@ public class JsonBuilderTest {
         person.setAddress(address);
 
         String json = new String(Files.readAllBytes(Paths.get(new ClassPathResource("test-template.json").getURI())));
-        String linkTemplateAsString = new String(Files.readAllBytes(Paths.get(new ClassPathResource("test.link").getURI())));
+        String linkTemplateAsString = new String(Files.readAllBytes(Paths.get(new ClassPathResource("test-template.link").getURI())));
         JsonBuilder jsonBuilder = new JsonBuilder();
         String finalOutput = jsonBuilder.build(json, linkTemplateAsString, Stream.of(person, address).collect(Collectors.toSet()));
         log.info(finalOutput);
