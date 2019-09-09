@@ -45,8 +45,9 @@ public class AttributeBuilder<T> implements Function<T, String> {
         String asJsonString = toJsonString(t);
         attributes.keySet().forEach(k -> {
             if(attributes.get(k) instanceof String) {
-                Object read = readAttribute(attributes, asJsonString, k);
-                attributes.put(k, read);
+                Object attributeValue = readAttribute(attributes, asJsonString, k);
+                if(attributeValue != null)
+                    attributes.put(k, attributeValue);
             } else
                 replaceJsonPath((Map<String, Object>)attributes.get(k), t);
         });

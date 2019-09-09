@@ -4,7 +4,7 @@
       "name": "person",
       "properties": {
         "firstname": "$.firstName",
-        "lastname": "$.lastname",
+        "lastname": "$.lastName",
         "age": "$.age",
         "address": {
           "line1": "$.address.line1",
