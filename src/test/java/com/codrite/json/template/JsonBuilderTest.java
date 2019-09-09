@@ -1,5 +1,6 @@
 package com.codrite.json.template;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -8,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
 
+@Slf4j
 public class JsonBuilderTest {
 
     @Test
@@ -30,7 +32,7 @@ public class JsonBuilderTest {
         String json = new String(Files.readAllBytes(Paths.get(new ClassPathResource("test-template.json").getURI())));
         JsonBuilder jsonBuilder = new JsonBuilder();
         String finalOutput = jsonBuilder.build(json, Collections.singleton(person));
-        System.out.println(finalOutput);
+        log.info(finalOutput);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.codrite.json.template.function;
 
 import com.codrite.json.template.Person;
+import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONArray;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+@Slf4j
 public class AttributeBuilderTest {
 
     @Test
@@ -21,7 +23,7 @@ public class AttributeBuilderTest {
         person.setFirstName("Arnabh");
         attributeBuilder.replaceJsonPath(jsonAttributes, person);
         Assert.assertNotNull(jsonAttributes.toString());
-        System.out.println(jsonAttributes.toString());
+        log.info(jsonAttributes.toString());
     }
 
 }
