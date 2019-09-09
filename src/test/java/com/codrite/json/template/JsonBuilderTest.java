@@ -7,7 +7,8 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 public class JsonBuilderTest {
@@ -30,8 +31,9 @@ public class JsonBuilderTest {
         person.setAddress(address);
 
         String json = new String(Files.readAllBytes(Paths.get(new ClassPathResource("test-template.json").getURI())));
+        String linkTemplateAsString = new String(Files.readAllBytes(Paths.get(new ClassPathResource("test.link").getURI())));
         JsonBuilder jsonBuilder = new JsonBuilder();
-        String finalOutput = jsonBuilder.build(json, Collections.singleton(person));
+        String finalOutput = jsonBuilder.build(json, linkTemplateAsString, Stream.of(person, address).collect(Collectors.toSet()));
         log.info(finalOutput);
     }
 

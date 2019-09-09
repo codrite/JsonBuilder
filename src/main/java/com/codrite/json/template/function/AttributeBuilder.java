@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Function;
 
-public class AttributeBuilder<T> implements Function<T, String> {
+public class AttributeBuilder<T> implements Function<T, JSONArray> {
 
     protected String jsonTemplate;
 
@@ -21,23 +21,23 @@ public class AttributeBuilder<T> implements Function<T, String> {
     }
 
     @Override
-    public String apply(T t) {
+    public JSONArray apply(T t) {
         final String attribute = t.getClass().getSimpleName();
         final JSONArray attributeValue = find(jsonTemplate, attribute);
-        return replaceJsonPath(attributeValue, t);
+        replaceJsonPath(attributeValue, t);
+        return attributeValue;
     }
 
     protected JSONArray find(String template, String attribute) {
-        return JsonPath.parse(template).read(String.format("$.attribute[?(@.name=='%s')].properties", attribute.toLowerCase()));
+        return JsonPath.parse(template).read(String.format("$.attributes[?(@.name=='%s')].properties", attribute.toLowerCase()));
     }
 
     @SuppressWarnings("unchecked")
-    protected String replaceJsonPath(JSONArray attribute, T t) {
+    protected void replaceJsonPath(JSONArray attribute, T t) {
         Iterator<Object> iterator = attribute.iterator();
         if(iterator.hasNext()) {
             replaceJsonPath((Map<String, Object>) iterator.next(), t);
         }
-        return attribute.toString();
     }
 
     @SuppressWarnings("unchecked")
@@ -48,8 +48,9 @@ public class AttributeBuilder<T> implements Function<T, String> {
                 Object attributeValue = readAttribute(attributes, asJsonString, k);
                 if(attributeValue != null)
                     attributes.put(k, attributeValue);
-            } else
-                replaceJsonPath((Map<String, Object>)attributes.get(k), t);
+            } else {
+                replaceJsonPath((Map<String, Object>) attributes.get(k), t);
+            }
         });
     }
 

@@ -1,19 +1,22 @@
 {
-  "attribute": [
+  "attributes": [
     {
       "name": "person",
       "properties": {
         "firstname": "$.firstName",
         "lastname": "$.lastName",
-        "age": "$.age",
-        "address": {
-          "line1": "$.address.line1",
-          "line2": "$.address.line2",
-          "city": "$.address.city",
-          "state": "$.address.state",
-          "zip": "$.address.zip",
-          "country": "$.address.country"
-        }
+        "age": "$.age"
+      }
+    },
+    {
+      "name": "address",
+      "properties": {
+        "line1": "$.line1",
+        "line2": "$.line2",
+        "city": "$.city",
+        "state": "$.state",
+        "zip": "$.zip",
+        "country": "$.country"
       }
     }
   ]
